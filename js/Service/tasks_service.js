@@ -1,5 +1,5 @@
 import { urlTasks } from "../config.js"
-import { createFetch } from "../createFetch.js"
+import { request } from "../http.js"
 import { Task } from '../Model/task_model.js'
 
 // Gerencia todas as operações relacionadas a tarefas:
@@ -12,10 +12,16 @@ export default class TasksService {
   }
 
   // Adiciona uma tarefa manualmente à lista interna
-  add(task, userId, cb, error) {
-    // Define função que será executada quando API responder com a tarefa criada
-    const onTaskCreated = (createdTask) => {
-      // POST retorna a tarefa criada, Se passou na validação, adiciona ao array
+  async add(task, userId, cb, error) {
+    try {
+
+      // Faz POST para API
+      const createdTask = await request(
+        "POST",
+        `${urlTasks}?userId=${userId}`,
+        task
+      )
+      // Converte resposta da API em instância Task
       this.tasks.push(new Task(
         createdTask.title,
         createdTask.id,
@@ -27,79 +33,95 @@ export default class TasksService {
       if (typeof cb === "function") {
         cb()
       }
+    } catch (erro) {
+      error(erro.message)
     }
-    createFetch("POST", `${urlTasks}?userId=${userId}`, task)
-      .then(response => onTaskCreated(response))
-      .catch(erro => error(erro.message))
   }
 
   // Busca todas as tarefas do usuário da API
-  getTasks(userId, success, error) {
-    // Define função que será executada quando API responder com as tarefas
-    const onTasksReceived = (tasksFromAPI) => {
-      // Transforma array de objetos brutos em array de instâncias Task
-      // .map() cria novo array aplicando a função em cada elemento
-      this.tasks = tasksFromAPI.map(task => {
-        // Para cada tarefa bruta da API, cria uma instância de Task
-        return new Task(
+  async getTasks(userId, success, error) {
+    try {
+      // Faz GET na API
+      const tasksFromAPI = await request(
+        "GET",
+        `${urlTasks}?userId=${userId}`
+      )
+      // Converte objetos brutos em instâncias Task
+      this.tasks = tasksFromAPI.map(task =>
+        new Task(
           task.title,
           task.id,
           task.completed,
           task.createdAt,
           task.updatedAt
         )
-      })
-      // Chama o callback passando o array de Tasks já transformado
-      // callback será a função init() do todolist.js
+      )
+      // Atualiza view
       if (typeof success === "function") {
         success(this.tasks)
       }
+
+    } catch (erro) {
+      error(erro.message)
     }
-    createFetch("GET", `${urlTasks}?userId=${userId}`)
-      .then(response => onTasksReceived(response))
-      .catch(erro => error(erro.message))
   }
 
-  // Remove uma tarefa: aceita `userId` para escopar a operação ao usuário correto
-  remove(id, cb, error, userId) {
-    // Define função que será executada quando API responder com a confirmação de delete 
-    const onTaskDeleted = () => {
-      // Remove do array em memória filtrando pela ID
+  // Remove tarefa pelo id
+  async remove(id, cb, error, userId) {
+    try {
+
+      // Faz DELETE na API
+      await request(
+        "DELETE",
+        `${urlTasks}/${id}?userId=${userId}`
+      )
+
+      // Remove da memória local
       this.tasks = this.tasks.filter(task => task.id !== Number(id))
+
+      // Atualiza view
       if (typeof cb === "function") {
         cb()
       }
+
+    } catch (erro) {
+      error(erro.message)
     }
-    // Inclui `userId` como query string para garantir que a API delete apenasa tarefa do usuário especificado
-    createFetch("DELETE", `${urlTasks}/${id}?userId=${userId}`)
-      .then(() => onTaskDeleted())
-      .catch(erro => error(erro.message))
   }
 
-  update(task, userId, cb, error) {
-    // Define função que será executada quando API responder com a tarefa atualizada
-    const onTaskUpdated = (updatedTask) => {
-      // Atualiza a tarefa no array em memória
+  // Atualiza tarefa existente
+  async update(task, userId, cb, error) {
+    try {
+
+      // Envia PUT para API
+      const updatedTask = await request(
+        "PUT",
+        `${urlTasks}/${task.id}?userId=${userId}`,
+        task
+      )
+
+      // Atualiza tarefa no array em memória
       this.tasks = this.tasks.map(t => {
         if (t.id === task.id) {
-          return new Task( 
+          return new Task(
             updatedTask.title,
             updatedTask.id,
-            updatedTask.completed, 
+            updatedTask.completed,
             updatedTask.createdAt,
             updatedTask.updatedAt
           )
-        } else {
-          return t
         }
+        return t
       })
+
+      // Atualiza view
       if (typeof cb === "function") {
         cb()
       }
+
+    } catch (erro) {
+      error(erro.message)
     }
-    createFetch("PUT", `${urlTasks}/${task.id}?userId=${userId}`, task)
-      .then(response => onTaskUpdated(response))
-      .catch(erro => error(erro.message))
   }
 
   // Retorna a tarefa em memória pelo id 
