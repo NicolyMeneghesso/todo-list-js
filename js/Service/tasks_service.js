@@ -1,5 +1,4 @@
 import { urlTasks } from "../config.js"
-import { createPromise } from "../createPromise.js" 
 import { createFetch } from "../createFetch.js"
 import { Task } from '../Model/task_model.js'
 
@@ -72,7 +71,7 @@ export default class TasksService {
       }
     }
     // Inclui `userId` como query string para garantir que a API delete apenasa tarefa do usuário especificado
-    createPromise("DELETE", `${urlTasks}/${id}?userId=${userId}`)
+    createFetch("DELETE", `${urlTasks}/${id}?userId=${userId}`)
       .then(() => onTaskDeleted())
       .catch(erro => error(erro.message))
   }
@@ -98,7 +97,7 @@ export default class TasksService {
         cb()
       }
     }
-    createPromise("PUT", `${urlTasks}/${task.id}?userId=${userId}`, task)
+    createFetch("PUT", `${urlTasks}/${task.id}?userId=${userId}`, task)
       .then(response => onTaskUpdated(response))
       .catch(erro => error(erro.message))
   }
