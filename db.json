@@ -8,12 +8,11 @@
       "updatedAt": 1771891250637
     },
     {
-      "id": 2,
       "title": "Segunda tarefa",
+      "id": 2,
       "completed": false,
       "createdAt": "",
-      "updatedAt": "",
-      "userId": 1
+      "updatedAt": 1774389772202
     },
     {
       "id": 3,

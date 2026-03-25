@@ -9,18 +9,36 @@
 
 html {
     font-size: 62.5%;
+    box-sizing: border-box;
+
 }
 
-
 body {
+    background: linear-gradient(0deg, #0C0420 0%, #9F6496 100%);
     font-family: 'Open Sans', sans-serif;
-    letter-spacing: .2rem;
-    display: flex;
+    letter-spacing: .15rem;
+    font-size: 1rem;
 }
 
 body,
 html {
     height: 100%;
+}
+
+main {
+    max-width: 500px;
+    margin: 90px auto;
+    padding: 0;
+}
+
+.navbar {
+    background-color: rgba(57, 33, 66, 0.25);
+    color: rgb(255, 255, 255);
+    font-size: 2rem;
+    border-radius: 6px;
+    max-width: 500px;
+    margin: 0 auto 20px auto;
+    box-shadow: 6px 7px 5px rgba(0, 0, 0, 0.3);
 }
 
 ul,
@@ -43,7 +61,7 @@ ion-icon {
     border-radius: 3px;
     box-shadow: 2px 2px 15px rgba(77, 77, 77, .5);
 
-    min-width: 37.5rem;
+    min-width: 50rem;
     margin: auto;
 
 }
