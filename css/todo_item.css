@@ -1,0 +1,85 @@
+.todo-list_container {
+    padding: 2rem;
+}
+
+.todo-item {
+    display: flex;
+    align-items: center;
+    position: relative; 
+    gap: 1rem;
+    margin: 0 0 2rem;
+    padding: 1rem 2rem;
+    border-radius: 6px;
+    background-color: #4A466A; 
+    box-shadow: 2px 2px 8px rgba(77, 77, 77, .5);
+}
+
+.todo-item:last-child {
+    margin-bottom: 0;
+}
+
+.button-check {
+    grid-column: 1/2;
+
+    align-self: center;
+    justify-self: center;
+    width: 1.6rem;
+    height: 1.6rem;
+    border-radius: .2rem;
+    border: 2px solid #2D2A4A;
+    position: relative;
+    outline: transparent;
+}
+
+.fa-check {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #726a95;
+}
+
+.fa-check.displayNone {
+    display: none;
+}
+
+.task-name {
+    flex: 1;
+    background-color: transparent;
+    color: #fff; 
+    padding: 0.60rem;
+    font-size: 1.3rem;
+    margin: 0;
+}
+
+.fa-trash-alt {
+    grid-column: 4/-1;
+}
+
+.fa-edit,
+.fa-trash-alt {
+    color: rgb(186, 177, 189);
+    outline: none;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    justify-self: center;
+    align-self: center;
+    font-size: 1.6rem;
+    font-weight: 500 !important;
+}
+
+.fa-edit:hover,
+.fa-trash-alt:hover {
+    color: rgb(241, 231, 247);
+    transform: scale(1.2, 1.2);
+    outline: none;
+    border: none;
+}
+
+.fa-edit:active,
+.fa-trash-alt:active {
+    transform: scale(1, 1);
+    outline: none;
+    border: none;
+}

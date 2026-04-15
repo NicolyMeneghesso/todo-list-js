@@ -1,0 +1,21 @@
+main {
+    flex: 1;
+    display: flex;
+}
+
+.half-content {
+    flex: 1;
+    padding: 2rem;
+    justify-content: center;
+    align-items: flex-start;
+    background: linear-gradient(0deg, #0C0420 0%, #9F6496 100%);
+}
+
+.todo-list_app {
+    width: 100%;
+    max-width: 500px;
+    margin: auto;
+    border-radius: 6px;
+    box-shadow: 6px 7px 5px rgba(0, 0, 0, 0.3);
+    background-color: rgba(247, 247, 247, 0.658);
+}

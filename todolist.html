@@ -10,31 +10,42 @@
     integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-  <link rel="stylesheet" href="./css/todolist.css">
+
+  <link rel="stylesheet" href="./css/base.css">
+  <link rel="stylesheet" href="./css/header.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="./css/todo_add.css"> 
+  <link rel="stylesheet" href="./css/todo_item.css">
+  <link rel="stylesheet" href="./css/todo_actions.css">  
+  <link rel="stylesheet" href="./css/responsive.css">
+
 </head>
 
-<body class="d-flex justify-content-center">
-  <main>
+<body>
+  <div class="half-image">
     <nav class="navbar">
       <div class="container-fluid">
-        <span class="navbar-text">
-          To Do List
+        <span class="navbar-text p-3 fw-semibold">
+          To-Do List
         </span>
       </div>
     </nav>
-
-    <div class="todo-list__app">
-
-      <div class="todo-add-item__container">
-        <form action="#" class="todo-add-item" id="todo-add">
-          <input class="inputItem" id="item-input" type="text" name="text" placeholder="New Item">
-          <input id="add-item" type="submit" value="Add">
-        </form>
+  </div>
+  <main>
+    <div class="half-content">
+      <div class="todo-list_app">
+        <div class="todo-add-item_container">
+          <form action="#" class="todo-add-item" id="todo-add">
+            <input class="inputItem" id="item-input" type="text" name="text" placeholder="Novo Item">
+            <input class="fw-medium" id="add-item" type="submit" value="Add">
+          </form>
+        </div>
+        <div class="todo-list_container">
+          <ul class="p-0" id="todo-list">
+          </ul>
+        </div>
       </div>
-      <div class="todo-list__container">
-        <ul id="todo-list">
-        </ul>
-      </div>
+    </div>
   </main>
 
   <script type="module" src="./js/todolist.js"></script>

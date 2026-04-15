@@ -1,0 +1,19 @@
+@media (max-width: 768px) {
+
+    .half-image {
+        flex: 0 0 15vh;
+    }
+
+    .half-content {
+        padding: 1.5rem;
+    }
+
+    .todo-add-item {
+        flex-direction: column;
+    }
+
+    input[type="submit"] {
+        width: 100%;
+        margin-left: 0;
+    }
+}
